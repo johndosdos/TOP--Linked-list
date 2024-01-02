@@ -134,9 +134,9 @@ function LinkedList() {
       for (let i = 0; i < index - 1; i++) {
         current = current?.next;
       }
-      const oldNextCurrent = current?.next;
+      const oldCurrentNext = current?.next;
       if (current?.next) current.next = node;
-      node.next = oldNextCurrent;
+      node.next = oldCurrentNext;
       current = current?.next;
     }
   }
@@ -152,11 +152,11 @@ function LinkedList() {
       for (let i = 0; i < index - 1; i++) {
         current = current?.next;
       }
-      const nextCurrentNext = current?.next?.next;
+      const newCurrentNext = current?.next?.next;
       if (current?.next) {
         current.next.next = undefined;
         current.next = undefined;
-        current.next = nextCurrentNext;
+        current.next = newCurrentNext;
       }
     }
   }
