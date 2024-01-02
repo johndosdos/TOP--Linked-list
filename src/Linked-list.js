@@ -119,6 +119,48 @@ function LinkedList() {
     return undefined;
   }
 
+  /**
+   * @param {number} index
+   * @param {T} value
+   */
+  function InsertAt(index, value) {
+    if (index === 0) {
+      Prepend(value);
+    } else if (index === length) {
+      Append(value);
+    } else {
+      const node = createNode(value);
+      let current = head;
+      for (let i = 0; i < index - 1; i++) {
+        current = current?.next;
+      }
+      const oldNextCurrent = current?.next;
+      if (current?.next) current.next = node;
+      node.next = oldNextCurrent;
+      current = current?.next;
+    }
+  }
+
+  /** @param {number} index */
+  function RemoveAt(index) {
+    if (index === 0) {
+      head = head?.next;
+    } else if (index === length) {
+      Pop();
+    } else {
+      let current = head;
+      for (let i = 0; i < index - 1; i++) {
+        current = current?.next;
+      }
+      const nextCurrentNext = current?.next?.next;
+      if (current?.next) {
+        current.next.next = undefined;
+        current.next = undefined;
+        current.next = nextCurrentNext;
+      }
+    }
+  }
+
   /** @public */
   function Pop() {
     if (length === 0) {
@@ -154,7 +196,6 @@ function LinkedList() {
       if (current?.value === value) return i;
       current = current?.next;
     }
-
     return undefined;
   }
 
@@ -179,6 +220,8 @@ function LinkedList() {
     Head,
     Tail,
     At,
+    InsertAt,
+    RemoveAt,
     Pop,
     Contains,
     Find,
@@ -193,7 +236,9 @@ myLinkedList.Prepend(0);
 myLinkedList.Append(5);
 myLinkedList.Append(7);
 myLinkedList.Append(10);
-myLinkedList.Append(10);
 myLinkedList.Append(4);
 myLinkedList.Prepend(9);
+myLinkedList.InsertAt(4, 2);
+myLinkedList.RemoveAt(3);
+console.log(myLinkedList.Size());
 console.log(myLinkedList.ToString());
